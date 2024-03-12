@@ -12,12 +12,6 @@ class Command(BaseCommand):
         with transaction.atomic():
             self.stdout.write("Loading initial data...")
 
-            all_models = apps.get_models()
-            for model in all_models:
-                model.objects.all().delete()
-
-            self.stdout.write("Deleting all data...")
-
             call_command("seed_admin")
 
             # Create instances using factories
