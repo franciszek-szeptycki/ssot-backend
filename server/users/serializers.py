@@ -1,10 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from django.contrib.auth.password_validation import validate_password
 
 
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, validators=[validate_password])
+    password = serializers.CharField(write_only=True, min_length=8)
     username = serializers.CharField(min_length=5)
     email = serializers.EmailField(allow_blank=False)
 
@@ -15,3 +14,13 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
+
+    def validate_username(self, value):
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError('Username already exists')
+        return value
+
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError('Email already exists')
+        return value
