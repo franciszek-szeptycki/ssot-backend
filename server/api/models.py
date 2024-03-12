@@ -30,6 +30,7 @@ class Section(models.Model):
     order = models.IntegerField()
     is_open = models.BooleanField()
     project_id = models.ForeignKey(Project, on_delete=models.CASCADE)
+    owner_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -52,7 +53,7 @@ class Task(models.Model):
     is_time_set = models.BooleanField()
     priority = models.BooleanField()
     project_id = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, blank=True)
-    section_id = models.ForeignKey(Section, on_delete=models.CASCADE, null=True, blank=True)
+    section_id = models.ForeignKey(Section, on_delete=models.SET_NULL, null=True, blank=True)
     owner_id = models.ForeignKey(User, on_delete=models.CASCADE)
     order = models.IntegerField()
     completed_subtasks = models.IntegerField()

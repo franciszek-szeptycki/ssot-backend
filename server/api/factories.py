@@ -38,6 +38,7 @@ class SectionFactory(factory.django.DjangoModelFactory):
     order = factory.Sequence(lambda n: n)
     is_open = factory.Faker('boolean')
     project_id = factory.SubFactory(ProjectFactory)
+    owner_id = factory.LazyFunction(get_random_user)
 
 
 class QuoteFactory(factory.django.DjangoModelFactory):
