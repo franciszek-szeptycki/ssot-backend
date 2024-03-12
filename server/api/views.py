@@ -29,3 +29,9 @@ class AreaDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Area.objects.filter(owner_id=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(owner_id=self.request.user)
+
+    def perform_destroy(self, instance):
+        instance.delete()
