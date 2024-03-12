@@ -83,7 +83,9 @@ STATIC_URL = 'static/'
 INSTALLED_APPS += [
     'users',
     'rest_framework',
+    'api',
 ]
+
 
 JAZZMIN_UI_TWEAKS = {
     # "theme": "sketchy",
