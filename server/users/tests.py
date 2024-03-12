@@ -69,3 +69,31 @@ class UserRegisterTest(APITestCase):
         self.assertEqual(response.data['email'][0], 'Email already exists')
         self.assertEqual(User.objects.count(), 1)
 
+
+class JWTAccessTest(APITestCase):
+
+    def test(self):
+        User.objects.create_user(username='testuser', password='testpassword', email="test@test.com")
+        response = self.client.post(reverse('token_obtain_pair'), {
+            'username': 'testuser',
+            'password': 'testpassword'
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('access', response.data)
+
+
+class JWTRefreshTest(APITestCase):
+
+    def test(self):
+        User.objects.create_user(username='testuser', password='testpassword', email="test@test.com")
+        response = self.client.post(reverse('token_obtain_pair'), {
+            'username': 'testuser',
+            'password': 'testpassword'
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('refresh', response.data)
+        response = self.client.post(reverse('token_refresh'), {
+            'refresh': response.data['refresh']
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('access', response.data)
