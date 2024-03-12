@@ -1,0 +1,1 @@
+from .load_factories import Command as CommandFactory
