@@ -1,0 +1,1 @@
+from .seed_admin import Command as AdminSeedsCommand
