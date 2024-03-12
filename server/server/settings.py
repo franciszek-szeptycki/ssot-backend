@@ -84,6 +84,7 @@ INSTALLED_APPS += [
     'users',
     'rest_framework',
     'api',
+    "rest_framework_simplejwt",
 ]
 
 
@@ -93,4 +94,10 @@ JAZZMIN_UI_TWEAKS = {
     "theme": "minty",
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
 
+APPEND_SLASH = False
