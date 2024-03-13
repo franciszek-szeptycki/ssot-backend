@@ -22,13 +22,13 @@ jobs:
       run: |
         pip install -r requirements.txt
 
-    - name: Collect static files
-      run: |
-        python server/manage.py collectstatic --noinput
-
     - name: Set up environment
       run: |
         cp .env.example .env
+
+    - name: Collect static files
+      run: |
+        python server/manage.py collectstatic --noinput
 
     - name: Run tests
       run: |
