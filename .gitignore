@@ -5,3 +5,4 @@ __pycache__
 .env
 save_progress.sh
 .idea
+static
