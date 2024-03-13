@@ -45,7 +45,7 @@ jobs:
         echo "${{ secrets.SFTP_PRIVATE_KEY }}" > private_key.pem
         chmod 600 private_key.pem
         mkdir repo_content
-        cp -r ./* repo_content/
+        cp -r !(repo_content) repo_content/
         cd repo_content
         lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:auto-confirm yes; set sftp:connect-program 'ssh -i ../private_key.pem'; mirror -R . /home/ubuntu/app; quit" sftp://${{ secrets.SFTP_HOST }}
 
