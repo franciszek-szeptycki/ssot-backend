@@ -6,6 +6,7 @@ COPY requirements.txt /app
 RUN pip install -r requirements.txt
 
 COPY server /app
+COPY .env /app/.env
 
 RUN python manage.py collectstatic --noinput
 RUN chmod +x /app/entrypoint.sh
