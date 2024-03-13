@@ -34,21 +34,29 @@ jobs:
       run: |
         python server/manage.py test
 
+    - name: Archive repository
+      uses: actions/upload-artifact@v2
+      with:
+        name: repo_content
+        path: ./
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install lftp
-      run: |
-        sudo apt-get update
-        sudo apt-get -y install lftp
+      - name: Install lftp
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install lftp
 
-    - name: SFTP Deploy
-      run: |
-        echo "${{ secrets.SFTP_PRIVATE_KEY }}" > private_key.pem
-        chmod 600 private_key.pem
-        mkdir repo_content
-        cp -r !(repo_content) repo_content/
-        cd repo_content
-        lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:auto-confirm yes; set sftp:connect-program 'ssh -i ../private_key.pem'; mirror -R . /home/ubuntu/app; quit" sftp://${{ secrets.SFTP_HOST }}
+      - name: Download repository
+        uses: actions/download-artifact@v2
+        with:
+          name: repo_content
+
+      - name: SFTP Deploy
+        run: |
+          echo "${{ secrets.SFTP_PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+          lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:auto-confirm yes; set sftp:connect-program 'ssh -i private_key.pem'; mirror -R . /home/ubuntu/app; quit" sftp://${{ secrets.SFTP_HOST }}
