@@ -18,12 +18,12 @@ jobs:
       - run:
           name: Collect Static Files
           command: |
-            python manage.py collectstatic --no-input
+            python server/manage.py collectstatic --no-input
       
       - run:
           name: Run Tests
           command: |
-            python manage.py test
+            python server/manage.py test
       
       - run:
           name: Build Docker Image
