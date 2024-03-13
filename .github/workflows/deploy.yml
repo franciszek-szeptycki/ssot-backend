@@ -22,6 +22,10 @@ jobs:
       run: |
         pip install -r requirements.txt
 
+    - name: Collect static files
+      run: |
+        python server/manage.py collectstatic --noinput
+
     - name: Set up environment
       run: |
         cp .env.example .env
@@ -48,4 +52,3 @@ jobs:
         cp -r !(repo_content) repo_content/
         cd repo_content
         lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:auto-confirm yes; set sftp:connect-program 'ssh -i ../private_key.pem'; mirror -R . /home/ubuntu/app; quit" sftp://${{ secrets.SFTP_HOST }}
-
