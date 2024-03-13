@@ -28,7 +28,7 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-            docker build -t your-image-name .
+            docker build -t $IMAGE .
       
       - run:
           name: Log in to AWS ECR
@@ -38,10 +38,10 @@ jobs:
       - run:
           name: Tag Docker Image
           command: |
-            docker tag your-image-name:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/your-repo-name:latest
+            docker tag $IMAGE:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO:latest
       
       - run:
           name: Push Docker Image to AWS ECR
           command: |
-            docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/your-repo-name:latest
+            docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO:latest
 
