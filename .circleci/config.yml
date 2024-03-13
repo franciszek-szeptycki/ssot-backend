@@ -3,38 +3,22 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/python:3.10
-      
-    working_directory: ~/repo
-    
+      - image: docker:stable
+
     steps:
       - checkout
-      
-      - run:
-          name: Install Dependencies
-          command: |
-            pip install -r requirements.txt
-            
+      - setup_remote_docker
+
       - run:
           name: Generate .env file
           command: |
             cp .env.example .env
-      
-      - run:
-          name: Collect Static Files
-          command: |
-            python server/manage.py collectstatic --no-input
-      
-      - run:
-          name: Run Tests
-          command: |
-            python server/manage.py test
-      
+
       - run:
           name: Build Docker Image
           command: |
             docker build -t $IMAGE .
-      
+
       - run:
           name: Configure AWS CLI
           command: |
