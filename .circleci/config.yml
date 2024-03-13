@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: docker:dind
+      - image: docker
 
     working_directory: ~/repo
     
