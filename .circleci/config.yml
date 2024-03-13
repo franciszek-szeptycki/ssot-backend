@@ -4,10 +4,32 @@ jobs:
   build:
     docker:
       - image: docker:stable
+      - image: circleci/python:3.10
 
     steps:
       - checkout
       - setup_remote_docker
+
+      - run:
+          name: Install Dependencies
+          command: |
+            pip install -r requirements.txt
+            
+      - run:
+          name: Generate .env file
+          command: |
+            cp .env.example .env
+      
+      - run:
+          name: Collect Static Files
+          command: |
+            python server/manage.py collectstatic --noinput
+      
+      - run:
+          name: Run Tests
+          command: |
+            python server/manage.py test
+      
     
       - run:
           name: Build Docker Image
