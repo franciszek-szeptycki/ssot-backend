@@ -1,4 +1,7 @@
+import os
 from pathlib import Path
+from dj_database_url import parse as db_url
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,12 +45,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'server.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -74,9 +72,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # MY CONFIG #
 #############
 
-SECRET_KEY = 'django-insecure-w(d*g(-ax&)xen+bn5rhj+2773zl_u=o8bity_8kk309(s2_-0'
-DEBUG = True
-ALLOWED_HOSTS = []
+from dotenv import load_dotenv
+load_dotenv()
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 
 STATIC_URL = 'static/'
 
@@ -101,3 +102,17 @@ REST_FRAMEWORK = {
 }
 
 APPEND_SLASH = False
+
+env_database_url = os.getenv('DATABASE_URL')
+
+if env_database_url:
+    DATABASES = {
+        'default': db_url(env_database_url)
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }

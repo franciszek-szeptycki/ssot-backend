@@ -61,3 +61,18 @@ class Task(models.Model):
 
     def __str__(self):
         return self.content
+
+    def change_order(self, new_order):
+        old_order = self.order
+        if old_order < new_order:
+            tasks = Task.objects.filter(order__gt=old_order, order__lte=new_order, section_id=self.section_id)
+            for task in tasks:
+                task.order -= 1
+                task.save()
+        else:
+            tasks = Task.objects.filter(order__lt=old_order, order__gte=new_order, section_id=self.section_id)
+            for task in tasks:
+                task.order += 1
+                task.save()
+        self.order = new_order
+        self.save()
