@@ -1,3 +1,5 @@
+# SSOT Backend - backend for [SSOT app](https://github.com/rafal-rybicki/ssot)
+
 # Installation guide 
 ***(for development environment)***
 1. Clone the repository: `git clone`
