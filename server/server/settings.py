@@ -76,7 +76,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+# DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 
 STATIC_URL = 'static/'
@@ -107,6 +107,7 @@ REST_FRAMEWORK = {
 
 APPEND_SLASH = False
 
+DEBUG = True
 if DEBUG:
     DATABASES = {
         'default': {
