@@ -78,7 +78,6 @@ load_dotenv()
 SECRET_KEY = "not-use-this-in-production"
 # DEBUG = os.getenv('DEBUG', 'False') == 'True'
 # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
-https://ssot.franciszekszeptycki.com/
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
