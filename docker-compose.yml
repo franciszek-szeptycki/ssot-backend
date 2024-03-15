@@ -5,11 +5,13 @@ services:
   app:
     build: ./server
     ports:
-      - "80:80"
+      - "8000:8000"
     depends_on:
       - db
     env_file:
       - .env
+    volumes:
+        - static:/app/static
 
   db:
     image: postgres:latest
@@ -21,5 +23,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    volumes:
+      - static:/app/static
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
 volumes:
   postgres_data:
+  static:
