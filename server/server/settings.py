@@ -1,6 +1,6 @@
 import os
+import random
 from pathlib import Path
-from dj_database_url import parse as db_url
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -107,16 +107,21 @@ REST_FRAMEWORK = {
 
 APPEND_SLASH = False
 
-env_database_url = os.getenv('DATABASE_URL')
-
-if env_database_url:
-    DATABASES = {
-        'default': db_url(env_database_url)
-    }
-else:
+if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('POSTGRES_NAME'),
+            'USER': os.getenv('POSTGRES_USER'),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+            'HOST': os.getenv('POSTGRES_HOST'),
+            'PORT': os.getenv('POSTGRES_PORT'),
         }
     }

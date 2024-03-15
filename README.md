@@ -1,4 +1,5 @@
 # SSOT Backend - backend for [SSOT app](https://github.com/rafal-rybicki/ssot)
+(not updated readme)
 
 # Installation guide 
 ***(for development environment)***

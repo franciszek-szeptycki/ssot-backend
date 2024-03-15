@@ -1,5 +1,12 @@
 #!/bin/sh
 
-python manage.py migrate
+#check is postgres up (all credentials from .env file)
+while ! nc -z db 5432; do
+  echo "Waiting for Postgres to start..."
+  sleep 1
+done
 
-gunicorn django_web_app.wsgi:application -b 0.0.0.0:8000 
+python manage.py migrate
+python manage.py seed_admin
+
+gunicorn server.wsgi:application -b 0.0.0.0:8000

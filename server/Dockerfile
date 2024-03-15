@@ -2,13 +2,11 @@ FROM python:3.10-alpine
 
 WORKDIR /app
 
-COPY requirements.txt /app
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY server /app
-COPY .env /app/.env
+COPY . .
 
-RUN python manage.py collectstatic --noinput
 RUN chmod +x /app/entrypoint.sh
 
 EXPOSE 8000
