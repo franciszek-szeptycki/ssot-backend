@@ -119,5 +119,5 @@ DATABASES = {
     }
 }
 
-CSRF_TRUSTED_ORIGINS = ["ssot.franciszekszeptycki.com", "franciszekszeptycki.com", "localhost"]
+CSRF_TRUSTED_ORIGINS = ["http://ssot.franciszekszeptycki.com", "http://franciszekszeptycki.com", "http://localhost"]
 CSRF_COOKIE_DOMAIN = ".franciszekszeptycki.com"
