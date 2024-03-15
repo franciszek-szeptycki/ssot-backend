@@ -9,4 +9,4 @@ done
 python manage.py migrate
 python manage.py seed_admin
 
-gunicorn server.wsgi:application -b 0.0.0.0:80
+python manage.py runserver 0.0.0.0:80
