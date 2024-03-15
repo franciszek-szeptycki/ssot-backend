@@ -118,3 +118,5 @@ DATABASES = {
         'PORT': os.getenv('POSTGRES_PORT'),
     }
 }
+
+CSRF_TRUSTED_ORIGINS = "ssot.franciszekszeptycki.com"
