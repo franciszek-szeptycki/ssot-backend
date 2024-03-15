@@ -119,4 +119,4 @@ DATABASES = {
     }
 }
 
-CSRF_TRUSTED_ORIGINS = "ssot.franciszekszeptycki.com"
+CSRF_TRUSTED_ORIGINS = ["ssot.franciszekszeptycki.com"]
