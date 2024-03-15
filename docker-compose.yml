@@ -30,7 +30,7 @@ services:
     depends_on:
       - app
     volumes:
-      - static:/app/static
+      - static:/usr/share/nginx/static/
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
 volumes:
   postgres_data:
