@@ -94,9 +94,9 @@ INSTALLED_APPS += [
 
 
 JAZZMIN_UI_TWEAKS = {
-    # "theme": "sketchy",
+    "theme": "sketchy",
     # "theme": "lux",
-    "theme": "minty",
+    # "theme": "minty",
 }
 
 REST_FRAMEWORK = {
